@@ -47,8 +47,8 @@ class MainActivity : AppCompatActivity() {
                             Log.d(TAG, "카카오톡 실행")
                             return true
                       //  }
-                        // 실행 못하는 경우 카카오톡 마켓으로 이동해야 하지만 resolveActivity가 제대로 작동하지 않아서
-                        // 기능 빼버림.
+                        // 실행 못하는 경우 카카오톡 마켓으로 이동해야 하지만 resolveActivity가 제대로 작동하지 않아서 기능 제외함
+
                         Log.d(TAG, "카카오톡 공유하기 실행 못함")
 
                         // 실행 못하면 웹뷰는 카카오톡 공유하기 화면으로 이동
