@@ -73,7 +73,7 @@ class MainActivity : AppCompatActivity() {
         /* 웹뷰에서 새 창이 뜨지 않도록 방지하는 구문 */
        // myWebView.webViewClient = WebViewClient()
        // myWebView.webChromeClient = WebChromeClient()
-        myWebView.loadUrl("http://116.37.136.233:8080")
+        myWebView.loadUrl("http://www.roulettetogether.site/roulette")
 
 
     }
