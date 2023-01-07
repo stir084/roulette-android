@@ -4,7 +4,7 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "com.example.roulette_together",
+  "applicationId": "com.roulette.roulette_together",
   "variantName": "release",
   "elements": [
     {
