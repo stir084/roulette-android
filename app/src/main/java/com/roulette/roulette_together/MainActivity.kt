@@ -37,35 +37,23 @@ class MainActivity : AppCompatActivity() {
                         // Intent 생성
                         val intent = Intent.parseUri(request.url.toString(), Intent.URI_INTENT_SCHEME)
 
-                        // 실행 가능한 앱이 있으면 앱 실행
+                        // 실행 가능한 앱이 있으면 앱 실행 - 실행 가능한 앲이 없으면 Exception 발생
                         packageManager.getPackageInfo("com.kakao.talk", PackageManager.GET_ACTIVITIES)
-                      //  if (intent.resolveActivity(packageManager) != null) {
-                            startActivity(intent)
-                            Log.d(TAG, "ACTIVITY: ${intent.`package`}")
-                            Log.d(TAG, "카카오톡 실행")
-                            return true
-                      //  }
-                        // 실행 못하는 경우 카카오톡 마켓으로 이동해야 하지만 resolveActivity가 제대로 작동하지 않아서 기능 제외함
+                        startActivity(intent)
+                        Log.d(TAG, "카카오톡 실행")
+                        return true
 
                         Log.d(TAG, "카카오톡 공유하기 실행 못함")
 
-                        // 실행 못하면 웹뷰는 카카오톡 공유하기 화면으로 이동
-                        // myWebView.loadUrl("http://kakao-share.s3-website.ap-northeast-2.amazonaws.com/")
 
-                        // 구글 플레이 카카오톡 마켓으로 이동
-                      /*  val intentStore = Intent(Intent.ACTION_VIEW)
-                        intentStore.addCategory(Intent.CATEGORY_DEFAULT)
-                        intentStore.data = Uri.parse("market://details?id=com.kakao.talk")
-                        Log.d(TAG, "구글 플레이 카카오톡 마켓으로 이동")
-                        startActivity(intentStore)*/
 
                     } catch (e: URISyntaxException) {
-                        Log.e(TAG, "!!! 에러 Invalid intent request", e)
+                        Log.e(TAG, "Invalid intent request", e)
                     } catch (e: Exception) {
                         Log.d(TAG, "카카오톡 공유하기 실행 못함")
 
                         // 실행 못하면 웹뷰는 카카오톡 공유하기 화면으로 이동
-                        myWebView.loadUrl("http://kakao-share.s3-website.ap-northeast-2.amazonaws.com/")
+                        myWebView.loadUrl("http://www.roulettetogether.site/roulette")
 
                         // 구글 플레이 카카오톡 마켓으로 이동
                         val intentStore = Intent(Intent.ACTION_VIEW)
@@ -75,17 +63,11 @@ class MainActivity : AppCompatActivity() {
                         startActivity(intentStore)
                     }
                 }
-                // 나머지 서비스 로직 구현
                 return false
             }
-        } //하단 앱 공유하기 기능 연결
-        ///myWebView.settings.javaScriptEnabled = true // 자바 스크립트 허용
-        /* 웹뷰에서 새 창이 뜨지 않도록 방지하는 구문 */
-       // myWebView.webViewClient = WebViewClient()
-       // myWebView.webChromeClient = WebChromeClient()
+        }
+
         myWebView.loadUrl("http://www.roulettetogether.site/roulette")
-
-
     }
 
     override fun onBackPressed() {
