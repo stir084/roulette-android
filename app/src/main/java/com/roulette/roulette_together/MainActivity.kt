@@ -2,6 +2,8 @@ package com.roulette.roulette_together
 
 import android.content.ContentValues.TAG
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -36,6 +38,7 @@ class MainActivity : AppCompatActivity() {
                         val intent = Intent.parseUri(request.url.toString(), Intent.URI_INTENT_SCHEME)
 
                         // 실행 가능한 앱이 있으면 앱 실행
+                        packageManager.getPackageInfo("com.kakao.talk", PackageManager.GET_ACTIVITIES)
                       //  if (intent.resolveActivity(packageManager) != null) {
                             startActivity(intent)
                             Log.d(TAG, "ACTIVITY: ${intent.`package`}")
@@ -58,6 +61,18 @@ class MainActivity : AppCompatActivity() {
 
                     } catch (e: URISyntaxException) {
                         Log.e(TAG, "!!! 에러 Invalid intent request", e)
+                    } catch (e: Exception) {
+                        Log.d(TAG, "카카오톡 공유하기 실행 못함")
+
+                        // 실행 못하면 웹뷰는 카카오톡 공유하기 화면으로 이동
+                        myWebView.loadUrl("http://kakao-share.s3-website.ap-northeast-2.amazonaws.com/")
+
+                        // 구글 플레이 카카오톡 마켓으로 이동
+                        val intentStore = Intent(Intent.ACTION_VIEW)
+                        intentStore.addCategory(Intent.CATEGORY_DEFAULT)
+                        intentStore.data = Uri.parse("market://details?id=com.kakao.talk")
+                        Log.d(TAG, "구글 플레이 카카오톡 마켓으로 이동")
+                        startActivity(intentStore)
                     }
                 }
                 // 나머지 서비스 로직 구현

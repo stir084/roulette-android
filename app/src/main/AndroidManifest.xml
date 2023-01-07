@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <queries>
+        <package android:name="com.kakao.talk" />
+    </queries>
     <!-- 인터넷 퍼미션 (권한) -->
     <uses-permission android:name="android.permission.INTERNET"/>
 
@@ -29,6 +32,9 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+
     </application>
+
+
 
 </manifest>
