@@ -1,22 +1,26 @@
 package com.roulette.roulette_together
 
 import android.content.ContentValues.TAG
+import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.webkit.WebResourceRequest
-import android.webkit.WebView
-import android.webkit.WebViewClient
+import android.webkit.*
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import java.net.URISyntaxException
 
 
 class MainActivity : AppCompatActivity() {
+    private val myApp: Context = this
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
 
         val myWebView: WebView = findViewById(R.id.webView)
 
@@ -27,6 +31,12 @@ class MainActivity : AppCompatActivity() {
             setSupportMultipleWindows(true)
         }
 
+        myWebView.webChromeClient = object : WebChromeClient(){
+            override fun onJsAlert(view: WebView?, url: String?, message: String?, result: JsResult?): Boolean {
+                onJsAlert(message!!, result!!)
+                return true
+            }
+        }
         myWebView.webViewClient = object: WebViewClient() {
 
             override fun shouldOverrideUrlLoading(view: WebView,request: WebResourceRequest): Boolean {
@@ -78,5 +88,23 @@ class MainActivity : AppCompatActivity() {
         }else{
             super.onBackPressed()
         }
+    }
+
+    fun onJsAlert(message : String, result : JsResult) : Unit{
+        var builder = AlertDialog.Builder(this@MainActivity)
+        //builder.setTitle("알 림")
+        builder.setMessage(message)
+       // builder.setIcon(R.drawable.icon)
+
+        // 버튼 클릭 이벤트
+        var listener = DialogInterface.OnClickListener { _, clickEvent ->
+            when (clickEvent) {
+                DialogInterface.BUTTON_POSITIVE ->{
+                    result!!.confirm()
+                }
+            }
+        }
+        builder.setPositiveButton(android.R.string.ok, listener)
+        builder.show()
     }
 }
