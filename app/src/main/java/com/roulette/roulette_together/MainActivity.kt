@@ -33,7 +33,12 @@ class MainActivity : AppCompatActivity() {
 
         myWebView.webChromeClient = object : WebChromeClient(){
             override fun onJsAlert(view: WebView?, url: String?, message: String?, result: JsResult?): Boolean {
-                onJsAlert(message!!, result!!)
+                AlertDialog.Builder(this@MainActivity)
+                    .setMessage(message)
+                    .setPositiveButton(android.R.string.ok) { _, _ -> result?.confirm() }
+                    .setCancelable(false)
+                    .create()
+                    .show()
                 return true
             }
         }
@@ -88,23 +93,5 @@ class MainActivity : AppCompatActivity() {
         }else{
             super.onBackPressed()
         }
-    }
-
-    fun onJsAlert(message : String, result : JsResult) : Unit{
-        var builder = AlertDialog.Builder(this@MainActivity)
-        //builder.setTitle("알 림")
-        builder.setMessage(message)
-       // builder.setIcon(R.drawable.icon)
-
-        // 버튼 클릭 이벤트
-        var listener = DialogInterface.OnClickListener { _, clickEvent ->
-            when (clickEvent) {
-                DialogInterface.BUTTON_POSITIVE ->{
-                    result!!.confirm()
-                }
-            }
-        }
-        builder.setPositiveButton(android.R.string.ok, listener)
-        builder.show()
     }
 }
